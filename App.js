@@ -1,8 +1,14 @@
+import "./global";
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
 import { useFonts } from "expo-font";
 
+import WalletConnectProvider from "@walletconnect/react-native-dapp";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 import { Home, Details } from "./screens";
+
+const SCHEME_FROM_APP_JSON = "RN-NFT-Marketplace";
 
 const Stack = createStackNavigator();
 
@@ -23,15 +29,26 @@ const App = () => {
     InterLight: require("./assets/fonts/Inter-Light.ttf"),
   })
 
-  if(!loaded) return null;
-  
+  if (!loaded) return null;
+
   return (
-    <NavigationContainer theme={theme}>
-      <Stack.Navigator screenOptions={{ headerShown: false}} initialRouteName="Home" >
-        <Stack.Screen name="Home" component={Home} />
-        <Stack.Screen name="Details" component={Details} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <WalletConnectProvider
+      redirectUrl={
+        Platform.OS === "web"
+          ? window.location.origin
+          : `${SCHEME_FROM_APP_JSON}://`
+      }
+      storageOptions={{
+        asyncStorage: AsyncStorage,
+      }}
+    >
+      <NavigationContainer theme={theme}>
+        <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName="Home" >
+          <Stack.Screen name="Home" component={Home} />
+          <Stack.Screen name="Details" component={Details} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </WalletConnectProvider>
   );
 }
 
