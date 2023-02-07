@@ -1,8 +1,11 @@
 import { useState } from 'react'
 import { View, SafeAreaView, FlatList } from 'react-native'
 
-import { COLORS, NFTData } from '../constants'
+import { COLORS, NFTData, SIZES, SHADOWS } from '../constants'
 import { NFTCard, HomeHeader, FocusedStatusBar } from '../components'
+import { RectButton } from '../components'
+
+import WalletConnectExperience from "../components/WalletConnect/WalletConnectExperience"
 
 const Home = () => {
   const [nftData, setNftData] = useState(NFTData)
@@ -24,6 +27,12 @@ const Home = () => {
   return (
     <SafeAreaView style={{flex: 1}}>
       <FocusedStatusBar background={COLORS.primary} />
+
+      <View style={{width: '100%', position: 'absolute', bottom: 0, paddingVertical: SIZES.font, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(255,255,255,0.5)', zIndex: 1}}>
+        {/* <RectButton minWidth={170} fontSize={SIZES.large} {...SHADOWS.dark} /> */}
+        <WalletConnectExperience />
+      </View>
+
       <View style={{flex: 1}}>
         {/* NFT LIST */}
         <View style={{zIndex: 0}}>
