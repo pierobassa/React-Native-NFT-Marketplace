@@ -8,6 +8,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { Home, Details } from "./screens";
 
+import {TEST} from '@env'
+
 const SCHEME_FROM_APP_JSON = "RN-NFT-Marketplace";
 
 const Stack = createStackNavigator();
